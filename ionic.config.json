@@ -1,0 +1,7 @@
+{
+  "name": "SECURYGARD",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
