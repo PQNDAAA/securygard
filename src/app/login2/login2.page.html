@@ -5,22 +5,26 @@
       </ion-buttons>
       <ion-title>SE CONNECTER</ion-title>
       <ion-buttons slot="end">
-      <ion-button [routerLink]="['/home']" [strong]="true" [disabled]="textAreaUserValue.invalid || textAreaPasswordValue.invalid"><ion-icon name="arrow-forward"></ion-icon></ion-button>
+      <ion-button [strong]="true" (click)="checkLogin()"><ion-icon name="arrow-forward"></ion-icon></ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
  <ion-content class="ion-padding">
    <ion-item>
-     <ion-input label="Nom de l'agent" labelPlacement="stacked" placeholder="" [(ngModel)]="textAreaUser" required #textAreaUserValue=ngModel></ion-input>
-     <div *ngIf="textAreaUserValue.invalid && textAreaUserValue.touched" class="error-message">
-       Ce champ est obligatoire.
+     <ion-input label="Nom de l'agent" labelPlacement="stacked" (ionChange)="onInputChangeUsername($event)" [(ngModel)]="textAreaUser" required #textAreaUserValue=ngModel></ion-input>
+     <div class="error-message">
+       <h4 *ngIf="textAreaUserValue.invalid && textAreaUserValue.touched">Ce champ est obligatoire.</h4>
      </div>
    </ion-item>
    <ion-item>
-     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" placeholder="" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
-     <div *ngIf="textAreaPasswordValue.invalid && textAreaPasswordValue.touched" class="error-message">
-       Ce champ est obligatoire.
+     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
+     <div class="error-message">
+       <h4 *ngIf="textAreaPasswordValue.invalid && textAreaPasswordValue.touched">Ce champ est obligatoire.</h4>
      </div>
    </ion-item>
+
+     <div class="error-message" *ngIf="errorLoginMessage">
+       <h4>{{errorLoginMessage}}</h4>
+     </div>
  </ion-content>
