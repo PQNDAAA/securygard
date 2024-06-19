@@ -12,13 +12,13 @@
 
  <ion-content class="ion-padding">
    <ion-item>
-     <ion-input label="Nom d'utilisateur" labelPlacement="stacked" placeholder="Ecrivez le nom d'utilisateur" [(ngModel)]="textAreaUser" required #textAreaUserValue=ngModel></ion-input>
+     <ion-input label="Nom de l'agent" labelPlacement="stacked" placeholder="" [(ngModel)]="textAreaUser" required #textAreaUserValue=ngModel></ion-input>
      <div *ngIf="textAreaUserValue.invalid && textAreaUserValue.touched" class="error-message">
        Ce champ est obligatoire.
      </div>
    </ion-item>
    <ion-item>
-     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" placeholder="Ecrivez le mot de passe" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
+     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" placeholder="" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
      <div *ngIf="textAreaPasswordValue.invalid && textAreaPasswordValue.touched" class="error-message">
        Ce champ est obligatoire.
      </div>
