@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Formulaire ajout d'un agent</ion-title>
+    <ion-buttons slot="end">
+    <ion-button class="closeButton" fill="clear" shape="round" color="danger" (click)="closeModal()"><ion-icon slot="icon-only" name="close">
+    </ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input label="Nom de l'agent" labelPlacement="stacked"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Nom d'utilisateur" labelPlacement="stacked"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Mot de passe" labelPlacement="stacked"></ion-input>
+  </ion-item>
+  <ion-button class="ion-padding">
+    <ion-icon slot="start" name="add"></ion-icon>
+    AJOUTER
+  </ion-button>
+</ion-content>

@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
+  {
+    path: 'currrenthand',
+    loadChildren: () => import('./currrenthand/currrenthand.module').then( m => m.CurrrenthandPageModule)
+  },
+  {
+    path: 'adduser',
+    loadChildren: () => import('./adduser/adduser.module').then( m => m.AdduserPageModule)
+  },
 ];
 @NgModule({
   imports: [

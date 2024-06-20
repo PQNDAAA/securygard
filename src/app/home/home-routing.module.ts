@@ -6,7 +6,22 @@ import { HomePage } from './home.page';
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: HomePage,
+    children: [
+      {
+        path:'userprofile',
+        loadChildren: () => import('../userprofile/userprofile.module').then(m => m.UserprofilePageModule)
+      },
+      {
+        path:'currenthand',
+        loadChildren: () => import('../currrenthand/currrenthand.module').then(m=> m.CurrrenthandPageModule)
+      },
+      {
+        path:'',
+        redirectTo:'home',
+        pathMatch:'full'
+      },
+    ]
   }
 ];
 
