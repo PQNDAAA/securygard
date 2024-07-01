@@ -7,7 +7,8 @@ import {UserService} from "../user.service";
   styleUrls: ['./login1.page.scss'],
 })
 export class Login1Page implements OnInit{
-  users: any = [];
+  users: any[] = [];
+
   constructor(private us:UserService) { }
 
   ngOnInit(): void {

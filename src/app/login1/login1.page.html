@@ -1,5 +1,10 @@
 <ion-content class="ion-padding">
   <div class="login-center">
     <ion-button color="primary" [routerLink]="['/main/login2']">SE CONNECTER</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-label>{{user.name}}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

@@ -8,17 +8,19 @@ import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 })
 export class UserService {
 
-  private apiURL = 'http://172.20.10.13:3000/users'
+  private apiUrl = 'https://57.128.17.195/securygard-app/api/v1';
+
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<any>{
-    return this.http.get(this.apiURL);
+    return this.http.get(`${this.apiUrl}/users.php`);
   }
-  addUser(user: any):Observable<any>{
-    return this.http.post(this.apiURL,user);
+
+  addUser(user: any): Observable<any>{
+    return this.http.post(`${this.apiUrl}/users.php`, user);
   }
   getUserByUsername(username:string):Observable<boolean>{
-    const url = `${this.apiURL}/${username}`
+    const url = `${this.apiUrl}/${username}`
     return this.http.get(url).pipe(
       map(response => {
         return true;
