@@ -30,8 +30,8 @@ export class Login2Page implements OnInit{
     this.us.addUser(this.newUser).subscribe(() =>
       this.getUsers());
   }
-  checkUserByUsername(username: string){
-    this.us.getUserByUsername(username).subscribe(exists => {
+  checkUserByUsername(name: string){
+    this.us.getNameByUser(name).subscribe(exists => {
       this.userExists = exists;
     },
       error => {

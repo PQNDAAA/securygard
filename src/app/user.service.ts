@@ -10,28 +10,30 @@ export class UserService {
 
   private apiUrl = 'https://57.128.17.195:3000/api/users';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getUsers(): Observable<any>{
+  getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
 
-  addUser(user: any): Observable<any>{
-    return this.http.post(`${this.apiUrl}`, user);
-  }
-  getUserByUsername(username:string):Observable<boolean>{
-    const url = `${this.apiUrl}/${username}`
+  getNameByUser(name: string): Observable<boolean> {
+    const url = `${this.apiUrl}/${name}`
     return this.http.get(url).pipe(
-      map(response => {
+      map(data => {
         return true;
       }),
-      catchError((error : HttpErrorResponse) => {
-        if(error.status === 404){
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 404) {
           return of(false);
         } else {
-          throw error;
+          throw err;
         }
       })
-    );
+    )
+  }
+
+  addUser(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, user);
   }
 }
