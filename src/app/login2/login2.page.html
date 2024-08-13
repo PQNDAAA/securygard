@@ -12,13 +12,21 @@
 
  <ion-content class="ion-padding">
    <ion-item>
+
      <ion-input label="Nom de l'agent" labelPlacement="stacked" (ionChange)="onInputChangeUsername($event)" [(ngModel)]="textAreaUser" required #textAreaUserValue=ngModel></ion-input>
      <div class="error-message">
        <h4 *ngIf="textAreaUserValue.invalid && textAreaUserValue.touched">Ce champ est obligatoire.</h4>
      </div>
+     <div>
+       <ion-icon *ngIf="this.userExists; else notUserExists" name="checkmark" color="success" size="large"></ion-icon>
+     </div>
+     <ng-template #notUserExists>
+       <ion-icon *ngIf="!textAreaUserValue.invalid" name="close" color="alert" size="large"></ion-icon>
+     </ng-template>
+
    </ion-item>
    <ion-item>
-     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
+     <ion-input label="Mot de passe" type="password" labelPlacement="stacked" (ionChange)="onInputChangePassword($event)" [(ngModel)]="textAreaPassword" required #textAreaPasswordValue=ngModel></ion-input>
      <div class="error-message">
        <h4 *ngIf="textAreaPasswordValue.invalid && textAreaPasswordValue.touched">Ce champ est obligatoire.</h4>
      </div>

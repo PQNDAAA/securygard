@@ -15,6 +15,8 @@ export class Login1Page implements OnInit{
     this.getUsers();
   }
   getUsers(){
-    this.us.getUsers().subscribe(data => this.users = data);
+    this.us.getUsers().subscribe(data => {
+      this.users = data;
+    });
   }
 }

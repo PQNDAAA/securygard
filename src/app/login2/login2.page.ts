@@ -9,46 +9,61 @@ import {UserService} from "../user.service";
 export class Login2Page implements OnInit{
 
   constructor(private us: UserService) { }
-  users: any = [];
+  users: any[] = [];
   newUser = {};
 
   textAreaUser!: string;
   textAreaPassword!: string;
 
-
   userExists!: boolean;
+  passwordExists!: boolean;
   errorLoginMessage!: string;
 
   ngOnInit() {
     this.getUsers();
   }
   getUsers(){
-    this.us.getUsers().subscribe(data =>
-      this.users = data);
+    this.us.getUsers().subscribe(data => {
+      this.users = data;
+      for(let i = 0; i < this.users.length; i ++){
+        console.log(this.users[i]);
+      }
+    });
   }
   addUser(){
     this.us.addUser(this.newUser).subscribe(() =>
       this.getUsers());
   }
-  checkUserByUsername(name: string){
-    this.us.getNameByUser(name).subscribe(exists => {
-      this.userExists = exists;
-    },
-      error => {
-      console.error("Cet utilisateur n'existe pas",error);
-      this.userExists = false;
+
+  checkUserByUsername(username: any) : boolean {
+    let nameFound = false;
+    for(let i = 0; i < this.users.length; i ++) {
+      console.log(this.users[i].name);
+      if(this.users[i].name === username) {
+        console.log("Cet utilisateur existe.");
+        nameFound = true;
+        this.userExists = nameFound;
+        return nameFound;
       }
-    );
+    }
+    console.log("Cet utilisateur n'existe pas.");
+    this.userExists = nameFound;
+    return nameFound;
   }
-
-
   onInputChangeUsername(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const username = inputElement.value;
     this.checkUserByUsername(username);
   }
+
+  onInputChangePassword(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const password = inputElement.value;
+    this.checkUserByUsername(password);
+  }
+
   checkLogin(){
-    if(!this.userExists){
+    if(!this.userExists || !this.passwordExists){
       this.errorLoginMessage = 'Vos informations ne sont pas correctes';
     } else {
       this.errorLoginMessage = 'Vos informations sont correctes';
