@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {UserService} from "../user.service";
+import {User, UserService} from "../user.service";
 
 @Component({
   selector: 'app-login1',
@@ -7,16 +7,15 @@ import {UserService} from "../user.service";
   styleUrls: ['./login1.page.scss'],
 })
 export class Login1Page implements OnInit{
-  users: any[] = [];
+  users: User[] | null = null;
 
   constructor(private us:UserService) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.GetUsers();
   }
-  getUsers(){
-    this.us.getUsers().subscribe(data => {
-      this.users = data;
-    });
+
+  GetUsers(){
+    this.us.getUsers().subscribe(data => this.users = data);
   }
 }

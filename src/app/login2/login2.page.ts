@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import {UserService} from "../user.service";
+import {User, UserService} from "../user.service";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-login2',
@@ -8,47 +9,47 @@ import {UserService} from "../user.service";
 })
 export class Login2Page implements OnInit{
 
-  constructor(private us: UserService) { }
-  users: any[] = [];
-  newUser = {};
+  constructor(private us: UserService, private nc: NavController) { }
+  currentUser: User | null = null;
 
   textAreaUser!: string;
   textAreaPassword!: string;
 
   userExists!: boolean;
   passwordExists!: boolean;
-  errorLoginMessage!: string;
+
+  loginMessage!: string;
 
   ngOnInit() {
-    this.getUsers();
-  }
-  getUsers(){
-    this.us.getUsers().subscribe(data => {
-      this.users = data;
-      for(let i = 0; i < this.users.length; i ++){
-        console.log(this.users[i]);
-      }
-    });
-  }
-  addUser(){
-    this.us.addUser(this.newUser).subscribe(() =>
-      this.getUsers());
+    this.us.fetchUsers();
   }
 
   checkUserByUsername(username: any) : boolean {
     let nameFound = false;
-    for(let i = 0; i < this.users.length; i ++) {
-      console.log(this.users[i].name);
-      if(this.users[i].name === username) {
-        console.log("Cet utilisateur existe.");
+    const foundUser = this.us.searchUserByName(username, 'name')
+       if (foundUser) {
+        this.currentUser = foundUser;
         nameFound = true;
-        this.userExists = nameFound;
-        return nameFound;
-      }
+      } else {
+        this.currentUser = null;
     }
-    console.log("Cet utilisateur n'existe pas.");
     this.userExists = nameFound;
     return nameFound;
+  }
+
+  checkPasswordByName(password: any) : boolean {
+    let passwordIsValid = false;
+    const currentPassword = this.currentUser?.password;
+    console.log(password);
+
+      if (currentPassword === password) {
+        console.log("Le mot de passe est correct");
+        passwordIsValid = true;
+      } else {
+        console.log("Le mot de passe n'est pas correct");
+    }
+    this.passwordExists = passwordIsValid;
+    return passwordIsValid;
   }
   onInputChangeUsername(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -59,14 +60,18 @@ export class Login2Page implements OnInit{
   onInputChangePassword(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const password = inputElement.value;
-    this.checkUserByUsername(password);
+    this.checkPasswordByName(password);
   }
 
-  checkLogin(){
+  checkLogin() : boolean{
     if(!this.userExists || !this.passwordExists){
-      this.errorLoginMessage = 'Vos informations ne sont pas correctes';
+      this.loginMessage = 'Vos informations ne sont pas correctes';
+      return false;
     } else {
-      this.errorLoginMessage = 'Vos informations sont correctes';
+      this.loginMessage = 'Vos informations sont correctes';
+      this.us.connectedUser = this.currentUser;
+      this.nc.navigateForward('/home');
+      return true;
     }
   }
 }
